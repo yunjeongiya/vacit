@@ -5,8 +5,10 @@ import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.dto.APIResponse;
 import com.oursummer.vacit.dto.user.HabitsResponse;
 import com.oursummer.vacit.dto.user.StickerPurchaseRequest;
+import com.oursummer.vacit.dto.user.UserWalletResponse;
 import com.oursummer.vacit.service.HabitService;
 import com.oursummer.vacit.service.StickerService;
+import com.oursummer.vacit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ public class UserController {
 
     private final HabitService habitService;
     private final StickerService stickerService;
+    private final UserService userService;
     @GetMapping("/users/{userId}/habbits/")
     public ResponseEntity<Object> getHabbits(@PathVariable Long userId) {
         log.info("get user habbits: {}", userId);
@@ -41,5 +44,10 @@ public class UserController {
         stickerService.purchaseSticker(request.getUserId(), request.getStickerId());
         return ResponseEntity.ok().body(APIResponse.ofSuccess("구매 성공", null));
     }
-
+    @GetMapping("/users/{userId}/wallet")
+    public ResponseEntity<Object> getWallet(@PathVariable Long userId) {
+        log.info("get user wallet: {}", userId);
+        UserWalletResponse wallet = userService.getWallet(userId);
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("보유중인 돈 조회 성공", wallet));
+    }
 }
