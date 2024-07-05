@@ -10,6 +10,7 @@ import com.oursummer.vacit.dto.habit.HabitDetailResponse;
 import com.oursummer.vacit.dto.user.StatisticsResponse;
 import com.oursummer.vacit.repository.HabitRepository;
 import com.oursummer.vacit.repository.ThemeRepository;
+import com.oursummer.vacit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class HabitService {
     private final HabitRepository habitRepository;
     private final ThemeRepository themeRepository;
     private final DailyCheckService dailyCheckService;
+    private final UserRepository userRepository;
     //습관 생성
     public Habit createHabit(HabitCreateRequest habitCreateRequest) {
         // 스티커 확인
@@ -60,10 +62,10 @@ public class HabitService {
         int totalDays = habit.getEndDate().compareTo(habit.getStartDate());
         int checkedDays = dailyCheckList.size();
         float progress = (float) checkedDays / totalDays;
-
+        String userNickname = userRepository.findById(habit.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다.")).getUsername();
         return HabitDetailResponse.builder()
                 .userId(habit.getUserId())
-                .userNickname("사용자 닉네임")    //Todo : 사용자 계정 연동 후 수정
+                .userNickname(userNickname)
                 .likes(habit.getLikeCnt())
                 .habitId(habit.getId())
                 .habitName(habit.getName())
