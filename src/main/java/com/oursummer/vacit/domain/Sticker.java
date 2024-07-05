@@ -41,20 +41,4 @@ public class Sticker {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
-
-    @Override
-    public String toString() {
-        // Json 형태로 출력
-        return "{" +
-                "\"id\":" + id +
-                ", \"name\":\"" + name + '\"' +
-                ", \"description\":\"" + description + '\"' +
-                ", \"image\":\"" + image + '\"' +
-                ", \"status\":\"" + status + '\"' +
-                ", \"price\":" + price +
-                ", \"level\":" + level +
-                ", \"createdAt\":\"" + createdAt + '\"' +
-                ", \"updatedAt\":\"" + updatedAt + '\"' +
-                '}';
-    }
 }
