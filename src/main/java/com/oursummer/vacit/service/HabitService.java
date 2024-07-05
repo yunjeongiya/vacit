@@ -4,6 +4,7 @@ import com.oursummer.vacit.domain.DailyCheck;
 import com.oursummer.vacit.domain.Habit;
 import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.domain.Theme;
+import com.oursummer.vacit.dto.habit.FeedHabitsResponse;
 import com.oursummer.vacit.dto.habit.HabitCreateRequest;
 import com.oursummer.vacit.dto.habit.HabitDetailResponse;
 import com.oursummer.vacit.dto.user.StatisticsResponse;
@@ -101,6 +102,14 @@ public class HabitService {
                 .failHabits(failHabitCount)
                 .activeHabits(activeHabitCount)
                 .successRatio(averageStamp)
+                .build();
+    }
+
+    public FeedHabitsResponse getFeedHabits() {
+        List<Habit> habits = habitRepository.findAll();
+        List<HabitDetailResponse> habitDetailResponses = habits.stream().map(habit -> getHabitById(habit.getId())).toList();
+        return FeedHabitsResponse.builder()
+                .feeds(habitDetailResponses)
                 .build();
     }
 }
