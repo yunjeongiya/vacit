@@ -36,7 +36,7 @@ public class HabitService {
                 .endDate(habitCreateRequest.getEndDate())
                 .memo(habitCreateRequest.getMemo())
                 .themeId(SaveTheme.getId())
-                .userId(-1L)    //Todo : 사용자 계정 연동 후 수정
+                .userId(habitCreateRequest.getUserId())
                 .build();
         return habitRepository.save(habit);
     }
@@ -78,5 +78,9 @@ public class HabitService {
         Habit habit = habitRepository.findById(habitId).orElseThrow(() -> new IllegalArgumentException("해당 습관이 없습니다."));
         habit.setMemo(memo);
         habitRepository.save(habit);
+    }
+
+    public List<Habit> getHabitsByUserId(Long userId) {
+        return habitRepository.findByUserId(userId);
     }
 }
