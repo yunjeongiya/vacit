@@ -91,6 +91,11 @@ public class HabitService {
         habit.setMemo(memo);
         habitRepository.save(habit);
     }
+    public void updateHabitName(Long habitId, String name) {
+        Habit habit = habitRepository.findById(habitId).orElseThrow(() -> new IllegalArgumentException("해당 습관이 없습니다."));
+        habit.setName(name);
+        habitRepository.save(habit);
+    }
 
     public List<Habit> getHabitsByUserId(Long userId) {
         return habitRepository.findByUserId(userId);
