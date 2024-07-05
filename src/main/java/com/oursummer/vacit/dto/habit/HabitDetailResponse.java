@@ -1,11 +1,13 @@
 package com.oursummer.vacit.dto.habit;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Builder
 public class HabitDetailResponse {
     private Long userId;
     private String userNickname;

@@ -33,8 +33,13 @@ public class HabitService {
                 .endDate(habitCreateRequest.getEndDate())
                 .memo(habitCreateRequest.getMemo())
                 .themeId(SaveTheme.getId())
+                .userId(-1L)    //Todo : 사용자 계정 연동 후 수정
                 .build();
         return habitRepository.save(habit);
+    }
+
+    public Habit getHabitById(Long habitId) {
+        return habitRepository.findById(habitId).orElseThrow(() -> new IllegalArgumentException("해당 습관이 없습니다."));
     }
 
 }

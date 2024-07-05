@@ -3,6 +3,7 @@ package com.oursummer.vacit.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
+@Data
 @Entity
 @Builder
 @NoArgsConstructor
@@ -49,11 +51,12 @@ public class Habit {
     @JoinColumn(name = "theme_id")
     private Long themeId;
 
+    @Column(nullable=false)
+    @JoinColumn(name = "user_id")
+    private Long userId;
     @PrePersist
     protected void prePersist() {
         this.status = "ACTIVE";
     }
-//    @Column(nullable=false) #todo 유저 생성후 주석 해제
-//    @JoinColumn(name = "user_id")
-//    private Long userId;
+
 }
