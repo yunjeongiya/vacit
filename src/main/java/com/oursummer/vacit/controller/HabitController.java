@@ -37,6 +37,11 @@ public class HabitController {
         habitService.updateHabitMemo(habitEditMemoRequest.getHabitId(), habitEditMemoRequest.getMemo());
         return ResponseEntity.ok().body(APIResponse.ofSuccess("메모 수정 성공", null));
     }
+    @PatchMapping("/habits/name")
+    public ResponseEntity<Object> updateHabitName(HabitEditNameRequest habitEditNameRequest) {
+        habitService.updateHabitName(habitEditNameRequest.getHabitId(), habitEditNameRequest.getName());
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("이름 수정 성공", null));
+    }
     @PutMapping("/habits/check")
     public ResponseEntity<Object> checkHabit(HabitCheckRequest habitCheckRequest) {
         dailyCheckService.dailyCheck(habitCheckRequest.getHabitId(), habitCheckRequest.getDate(), habitCheckRequest.getIsCheck());
