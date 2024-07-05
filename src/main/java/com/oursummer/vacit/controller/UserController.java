@@ -4,6 +4,7 @@ import com.oursummer.vacit.domain.Habit;
 import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.dto.APIResponse;
 import com.oursummer.vacit.dto.user.HabitsResponse;
+import com.oursummer.vacit.dto.user.SettingRequest;
 import com.oursummer.vacit.dto.user.StickerPurchaseRequest;
 import com.oursummer.vacit.dto.user.UserWalletResponse;
 import com.oursummer.vacit.service.HabitService;
@@ -54,5 +55,11 @@ public class UserController {
     public ResponseEntity<Object> getSetting(@PathVariable Long userId) {
         log.info("get user setting: {}", userId);
         return ResponseEntity.ok().body(APIResponse.ofSuccess("설정 정보 조회 성공", userService.getSetting(userId)));
+    }
+    @PatchMapping("/users/setting")
+    public ResponseEntity<Object> updateSetting(@RequestBody SettingRequest request) {
+        log.info("update user setting: {}", request);
+        userService.updateSetting(request);
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("설정 정보 수정 성공", null));
     }
 }

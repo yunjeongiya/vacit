@@ -3,6 +3,7 @@ package com.oursummer.vacit.service;
 import com.oursummer.vacit.domain.Setting;
 import com.oursummer.vacit.domain.User;
 import com.oursummer.vacit.domain.Wallet;
+import com.oursummer.vacit.dto.user.SettingRequest;
 import com.oursummer.vacit.dto.user.SettingResponse;
 import com.oursummer.vacit.dto.user.UserWalletResponse;
 import com.oursummer.vacit.repository.SettingRepository;
@@ -38,5 +39,19 @@ public class UserService {
                 .photo(setting.getPhoto())
                 .statusMsg(setting.getStatusMsg())
                 .build();
+    }
+    public void updateSetting(SettingRequest settingRequest) {
+        User user = userRepository.findById(settingRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+        Setting setting = settingRepository.findById(user.getSettingId()).orElseThrow(() -> new IllegalArgumentException("설정 정보가 없습니다."));
+
+        user.setEmail(settingRequest.getEmail());
+        user.setRole(settingRequest.getRole());
+        userRepository.save(user);
+        setting.setCriterion(settingRequest.getCriterion());
+        setting.setNickname(settingRequest.getNickname());
+        setting.setPhone(settingRequest.getPhone());
+        setting.setPhoto(settingRequest.getPhoto());
+        setting.setStatusMsg(settingRequest.getStatusMsg());
+        settingRepository.save(setting);
     }
 }
