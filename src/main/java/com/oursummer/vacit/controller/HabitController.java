@@ -1,5 +1,6 @@
 package com.oursummer.vacit.controller;
 
+import com.oursummer.vacit.domain.DailyCheck;
 import com.oursummer.vacit.domain.Habit;
 import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.domain.Theme;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -53,6 +55,8 @@ public class HabitController {
         Habit habit = habitService.getHabitById(habitId);
         Theme theme = themeService.getThemeById(habit.getThemeId());
         Sticker sticker = stickerService.getStickerById(theme.getStickerId());
+        List<LocalDate> dailyCheckList = dailyCheckService.getDailyCheckList(habitId).stream().map(DailyCheck::getDate).toList();
+
         HabitDetailResponse habitDetailResponse = HabitDetailResponse.builder()
                 .userId(habit.getUserId())
                 .userNickname("사용자 닉네임")    //Todo : 사용자 계정 연동 후 수정
@@ -64,7 +68,7 @@ public class HabitController {
                 .backgroundColor(theme.getBackgroundColor())
                 .startDate(habit.getStartDate())
                 .endDate(habit.getEndDate())
-                .checkedDates(List.of())    //Todo : 체크한 날짜 조회 후 수정
+                .checkedDates(dailyCheckList)
                 .memo(habit.getMemo())
                 .build();
         return ResponseEntity.ok().body(APIResponse.ofSuccess("습관 조회 성공", habitDetailResponse));
