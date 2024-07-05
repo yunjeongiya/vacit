@@ -46,4 +46,19 @@ public class Sticker {
         this.updatedAt = LocalDateTime.now();
     }
 
+    @Override
+    public String toString() {
+        // Json 형태로 출력
+        return "{" +
+                "\"id\":" + id +
+                ", \"name\":\"" + name + '\"' +
+                ", \"description\":\"" + description + '\"' +
+                ", \"image\":\"" + image + '\"' +
+                ", \"status\":\"" + status + '\"' +
+                ", \"price\":" + price +
+                ", \"level\":" + level +
+                ", \"createdAt\":\"" + createdAt + '\"' +
+                ", \"updatedAt\":\"" + updatedAt + '\"' +
+                '}';
+    }
 }

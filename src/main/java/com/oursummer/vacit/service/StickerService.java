@@ -17,6 +17,7 @@ public class StickerService {
         return stickerRepository.findAll();
     }
 
-
-
+    public Sticker getStickerById(Long stickerId) {
+        return stickerRepository.findById(stickerId).orElseThrow(() -> new IllegalArgumentException("해당 스티커가 없습니다."));
+    }
 }
