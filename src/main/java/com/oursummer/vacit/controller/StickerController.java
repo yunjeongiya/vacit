@@ -22,7 +22,7 @@ public class StickerController {
         resp.put("name", "sticker");
         resp.put("description", "sticker description");
 
-        return ResponseEntity.ok(
+        return ResponseEntity.ok().body(resp);
     }
 
     @GetMapping("/stickers/{stickerId}")
