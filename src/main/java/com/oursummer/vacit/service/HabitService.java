@@ -26,6 +26,9 @@ public class HabitService {
     //습관 생성
     public Habit createHabit(HabitCreateRequest habitCreateRequest) {
         // 테마 생성
+        if (stickerService.getStickerById(habitCreateRequest.getStickerId()) == null) {
+            throw new IllegalArgumentException("해당 스티커가 없습니다.");
+        }
         Theme theme = Theme.builder()
                 .stickerId(habitCreateRequest.getStickerId())
                 .backgroundColor(habitCreateRequest.getBackgroundColor())
