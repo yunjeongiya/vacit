@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() // h2-console 경로에 대한 접근 허용
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
                         .requestMatchers("/stickers", "/stickers/**", "/").permitAll() // 개발중 모든 사용자에게 허용
-//                        .requestMatchers("/**").permitAll() // 개발중 모든 사용자에게 허용
+                        .requestMatchers("/**").permitAll() // 개발중 모든 사용자에게 허용
                         .anyRequest().authenticated());
 
         return http.build();
