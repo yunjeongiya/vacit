@@ -30,11 +30,11 @@ public class SecurityConfig {
                         .userInfoEndpoint((userInfoEndpointConfig ->
                                 userInfoEndpointConfig.userService(customOAuth2UserService))))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+                        .requestMatchers("/oauth2/**", "/login/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // h2-console 경로에 대한 접근 허용
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
-                        .requestMatchers("/**").permitAll()); // 개발중 모든 사용자에게 허용
-        //.anyRequest().authenticated();
+                        //.requestMatchers("/**").permitAll()); // 개발중 모든 사용자에게 허용
+                        .anyRequest().authenticated());
 
         return http.build();
     }
