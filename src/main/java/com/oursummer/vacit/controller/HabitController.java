@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -38,6 +40,13 @@ public class HabitController {
     @PutMapping("/habits/check")
     public ResponseEntity<Object> checkHabit(HabitCheckRequest habitCheckRequest) {
         dailyCheckService.dailyCheck(habitCheckRequest.getHabitId(), habitCheckRequest.getDate(), habitCheckRequest.getIsCheck());
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("체크 성공", null));
+    }
+    @PatchMapping("/habits/check")
+    public ResponseEntity<Object> checkHabitList(HabitCheckListRequest habitCheckListRequest) {
+        for (LocalDate checkDate : habitCheckListRequest.getDates()) {
+            dailyCheckService.dailyCheck(habitCheckListRequest.getHabitId(), checkDate, habitCheckListRequest.getIsCheck());
+        }
         return ResponseEntity.ok().body(APIResponse.ofSuccess("체크 성공", null));
     }
     @GetMapping("/habits/{habitId}")
