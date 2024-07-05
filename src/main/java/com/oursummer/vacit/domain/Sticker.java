@@ -30,6 +30,9 @@ public class Sticker {
     @Column(nullable = false)
     private int price;
 
+    @Column(nullable = false)
+    private int level;
+
     // create_at
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
