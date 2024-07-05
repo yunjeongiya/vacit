@@ -20,19 +20,21 @@ public class HabitService {
     private final ThemeRepository themeRepository;
     //습관 생성
     public Habit createHabit(HabitCreateRequest habitCreateRequest) {
+        // 테마 생성
+        Theme theme = Theme.builder()
+                .stickerId(habitCreateRequest.getStickerId())
+                .backgroundColor(habitCreateRequest.getBackgroundColor())
+                .build();
+        Theme SaveTheme = themeRepository.save(theme);
+        // 습관 생성
         Habit habit = Habit.builder()
                 .name(habitCreateRequest.getName())
                 .startDate(habitCreateRequest.getStartDate())
                 .endDate(habitCreateRequest.getEndDate())
                 .memo(habitCreateRequest.getMemo())
+                .themeId(SaveTheme.getId())
                 .build();
-        Theme theme = Theme.builder()
-                .stickerId(habitCreateRequest.getStickerId())
-                .backgroundColor(habitCreateRequest.getBackgroundColor())
-                .build();
-        habitRepository.save(habit);
-        themeRepository.save(theme);
-        return habit;
+        return habitRepository.save(habit);
     }
 
 }

@@ -45,11 +45,15 @@ public class Habit {
     @Column
     private String status;
 
+    @Column(nullable=false)
+    @JoinColumn(name = "theme_id")
+    private Long themeId;
+
     @PrePersist
     protected void prePersist() {
         this.status = "ACTIVE";
     }
-//    @Column(nullable=false)
+//    @Column(nullable=false) #todo 유저 생성후 주석 해제
 //    @JoinColumn(name = "user_id")
 //    private Long userId;
 }
