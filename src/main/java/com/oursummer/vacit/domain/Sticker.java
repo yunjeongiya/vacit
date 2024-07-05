@@ -3,7 +3,10 @@ package com.oursummer.vacit.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,18 +36,11 @@ public class Sticker {
     @Column(nullable = false)
     private int level;
 
-    // create_at
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    // update_at
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
 
-    @PrePersist
-    protected void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 
     @Override
     public String toString() {
