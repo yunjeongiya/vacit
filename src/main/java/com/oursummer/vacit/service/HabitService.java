@@ -25,10 +25,15 @@ public class HabitService {
     private final DailyCheckService dailyCheckService;
     //습관 생성
     public Habit createHabit(HabitCreateRequest habitCreateRequest) {
-        // 테마 생성
+        // 스티커 확인
         if (stickerService.getStickerById(habitCreateRequest.getStickerId()) == null) {
             throw new IllegalArgumentException("해당 스티커가 없습니다.");
         }
+        // 구매한 스티커
+        if (stickerService.getStickerByUserId(habitCreateRequest.getUserId()).stream().noneMatch(sticker -> sticker.getId().equals(habitCreateRequest.getStickerId()))) {
+            throw new IllegalArgumentException("보유중인 스티커가 아닙니다.");
+        }
+        // 테마 생성
         Theme theme = Theme.builder()
                 .stickerId(habitCreateRequest.getStickerId())
                 .backgroundColor(habitCreateRequest.getBackgroundColor())
