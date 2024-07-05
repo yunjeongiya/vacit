@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatisticsResponse {
-    public int successHabits;
-    public int failHabits;
-    public int activeHabits;
+    public int successHabitCount;
+    public int failHabitCount;
+    public int activeHabitCount;
     public float successRatio;
 }
