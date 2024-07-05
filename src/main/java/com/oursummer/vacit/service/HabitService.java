@@ -101,9 +101,9 @@ public class HabitService {
         int averageStamp = totalDays == 0 ? 0 : totalStamp / totalDays;
 
         return StatisticsResponse.builder()
-                .successHabits(successHabitCount)
-                .failHabits(failHabitCount)
-                .activeHabits(activeHabitCount)
+                .successHabitCount(successHabitCount)
+                .failHabitCount(failHabitCount)
+                .activeHabitCount(activeHabitCount)
                 .successRatio(averageStamp)
                 .build();
     }
