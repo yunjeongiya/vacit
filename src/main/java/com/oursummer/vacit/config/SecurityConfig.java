@@ -18,16 +18,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf((csrf) -> csrf.disable())
-                .formLogin((login) -> login.disable())
-                .httpBasic((basic) -> basic.disable())
-                .oauth2Login((oauth2) -> oauth2
-                        .userInfoEndpoint((userInfoEndpointConfig ->
-                                userInfoEndpointConfig.userService(customOAuth2UserService))))
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
-                        .anyRequest().authenticated());
+//        http
+//                .csrf((csrf) -> csrf.disable())
+//                .formLogin((login) -> login.disable())
+//                .httpBasic((basic) -> basic.disable())
+//                .oauth2Login((oauth2) -> oauth2
+//                        .userInfoEndpoint((userInfoEndpointConfig ->
+//                                userInfoEndpointConfig.userService(customOAuth2UserService))))
+//                .authorizeHttpRequests((auth) -> auth
+//                        .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+//                        .anyRequest().authenticated());
 
         return http.build();
     }
