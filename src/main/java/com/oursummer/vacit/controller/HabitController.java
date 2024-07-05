@@ -45,4 +45,9 @@ public class HabitController {
         HabitDetailResponse habitDetailResponse = habitService.getHabitById(habitId);
         return ResponseEntity.ok().body(APIResponse.ofSuccess("습관 조회 성공", habitDetailResponse));
     }
+    @GetMapping("/feed/habits")
+    public ResponseEntity<Object> getFeedHabits() {
+        FeedHabitsResponse feedHabitsResponse = habitService.getFeedHabits();
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("피드 습관 조회 성공", feedHabitsResponse));
+    }
 }
