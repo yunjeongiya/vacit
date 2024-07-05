@@ -3,10 +3,7 @@ package com.oursummer.vacit.controller;
 import com.oursummer.vacit.domain.Habit;
 import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.dto.APIResponse;
-import com.oursummer.vacit.dto.user.HabitsResponse;
-import com.oursummer.vacit.dto.user.SettingRequest;
-import com.oursummer.vacit.dto.user.StickerPurchaseRequest;
-import com.oursummer.vacit.dto.user.UserWalletResponse;
+import com.oursummer.vacit.dto.user.*;
 import com.oursummer.vacit.service.HabitService;
 import com.oursummer.vacit.service.StickerService;
 import com.oursummer.vacit.service.UserService;
@@ -61,5 +58,11 @@ public class UserController {
         log.info("update user setting: {}", request);
         userService.updateSetting(request);
         return ResponseEntity.ok().body(APIResponse.ofSuccess("설정 정보 수정 성공", null));
+    }
+    @GetMapping("/users/{userId}/statistics")
+    public ResponseEntity<Object> getStatistics(@PathVariable Long userId) {
+        log.info("get user statistics: {}", userId);
+        StatisticsResponse statistics = habitService.getStatistics(userId);
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("통계 조회 성공", statistics));
     }
 }

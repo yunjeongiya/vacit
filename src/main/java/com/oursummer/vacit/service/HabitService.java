@@ -6,6 +6,7 @@ import com.oursummer.vacit.domain.Sticker;
 import com.oursummer.vacit.domain.Theme;
 import com.oursummer.vacit.dto.habit.HabitCreateRequest;
 import com.oursummer.vacit.dto.habit.HabitDetailResponse;
+import com.oursummer.vacit.dto.user.StatisticsResponse;
 import com.oursummer.vacit.repository.HabitRepository;
 import com.oursummer.vacit.repository.ThemeRepository;
 import lombok.RequiredArgsConstructor;
@@ -82,5 +83,24 @@ public class HabitService {
 
     public List<Habit> getHabitsByUserId(Long userId) {
         return habitRepository.findByUserId(userId);
+    }
+    // 통계
+    public StatisticsResponse getStatistics(Long userId) {
+        List<Habit> habits = habitRepository.findByUserId(userId);
+        int successHabitCount = (int) habits.stream().filter(habit -> habit.getStatus().equals("SUCCESS")).count();
+        int failHabitCount = (int) habits.stream().filter(habit -> habit.getStatus().equals("FAIL")).count();
+        List<Habit> activeHabits = habits.stream().filter(habit -> habit.getStatus().equals("ACTIVE")).toList();
+        int activeHabitCount = activeHabits.size();
+        // (스탬프수 / 현재일 - 시작일 ) == 습관 평균
+        int totalStamp = activeHabits.stream().mapToInt(habit -> dailyCheckService.getDailyCheckList(habit.getId()).size()).sum();
+        int totalDays = activeHabits.stream().mapToInt(habit -> habit.getStartDate().until(LocalDate.now()).getDays()).sum();
+        int averageStamp = totalDays == 0 ? 0 : totalStamp / totalDays;
+
+        return StatisticsResponse.builder()
+                .successHabits(successHabitCount)
+                .failHabits(failHabitCount)
+                .activeHabits(activeHabitCount)
+                .successRatio(averageStamp)
+                .build();
     }
 }
