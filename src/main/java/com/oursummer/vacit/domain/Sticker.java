@@ -30,6 +30,9 @@ public class Sticker {
     @Column(nullable = false)
     private int price;
 
+    @Column(nullable = false)
+    private int level;
+
     // create_at
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -43,4 +46,19 @@ public class Sticker {
         this.updatedAt = LocalDateTime.now();
     }
 
+    @Override
+    public String toString() {
+        // Json 형태로 출력
+        return "{" +
+                "\"id\":" + id +
+                ", \"name\":\"" + name + '\"' +
+                ", \"description\":\"" + description + '\"' +
+                ", \"image\":\"" + image + '\"' +
+                ", \"status\":\"" + status + '\"' +
+                ", \"price\":" + price +
+                ", \"level\":" + level +
+                ", \"createdAt\":\"" + createdAt + '\"' +
+                ", \"updatedAt\":\"" + updatedAt + '\"' +
+                '}';
+    }
 }

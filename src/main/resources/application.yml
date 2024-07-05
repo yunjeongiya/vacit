@@ -27,10 +27,13 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update # 테이블 생성 전략 - update: 테이블이 없을 때만 생성
+      ddl-auto: create # 테이블 생성 전략 - create: 항상 생성
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      encoding: UTF-8
   h2:
     console:
       enabled: true
