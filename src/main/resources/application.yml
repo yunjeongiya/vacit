@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: "local"
+    active: "prod"
     group:
       "local": "test"
       "prod": "test, prodDB"
@@ -37,6 +37,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # 테이블 생성 전략 - update: 테이블이 없을 때만 생성
+  sql:
+    init:
+      encoding: UTF-8
   h2:
     console:
       enabled: true
@@ -52,9 +55,9 @@ spring:
       on-profile: prodDB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cb4se2ckk9tm.ap-northeast-2.rds.amazonaws.com:3306/vacit
-    username: admin
-    password: qwer1234
+    url: ${DATASOURCE_URL_LOCAL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update # 테이블 생성 전략 - update: 테이블이 없을 때만 생성

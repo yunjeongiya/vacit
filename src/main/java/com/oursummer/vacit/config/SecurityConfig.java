@@ -23,6 +23,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll() // h2-console 경로에 대한 접근 허용
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
+                        .requestMatchers("/**").permitAll() // 개발중 모든 사용자에게 허용
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable // CSRF 보호 비활성화 (h2-console 사용 시 필요)
