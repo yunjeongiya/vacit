@@ -8,5 +8,5 @@ import java.time.LocalDate;
 public class HabitCheckRequest {
     private Long habitId;
     private LocalDate date;
-    private Boolean bool;
+    private Boolean isCheck;
 }
