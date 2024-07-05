@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StickersResponse {
-    public String message;
-    public List<Sticker> data;
+public class AllStickersResponse {
+    public List<Sticker> allStickers;
 }

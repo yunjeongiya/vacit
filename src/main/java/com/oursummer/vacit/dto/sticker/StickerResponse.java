@@ -11,6 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StickerResponse {
-    public String message;
-    public Sticker data;
+    public Sticker sticker;
 }

@@ -1,7 +1,8 @@
 package com.oursummer.vacit.controller;
 
 import com.oursummer.vacit.domain.Sticker;
-import com.oursummer.vacit.dto.sticker.StickersResponse;
+import com.oursummer.vacit.dto.APIResponse;
+import com.oursummer.vacit.dto.sticker.AllStickersResponse;
 import com.oursummer.vacit.service.StickerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,8 @@ public class StickerController {
     public ResponseEntity<Object> sticker() {
         log.info("모든 스티커 조회");
         List<Sticker> stickers = stickerService.getSticker();
-        StickersResponse stickersResponse = new StickersResponse("모든 스티커 조회", stickers);
-        return ResponseEntity.ok().body(stickersResponse);
+        AllStickersResponse stickersResponse = new AllStickersResponse(stickers);
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("모든 스티커 조회", stickersResponse));
     }
 
     @GetMapping("/stickers/{stickerId}")
