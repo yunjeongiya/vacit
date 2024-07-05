@@ -19,5 +19,4 @@ public class HabitDetailResponse {
     private LocalDate endDate;
     private List<LocalDate> checkedDates;
     private String memo;
-
 }

@@ -1,16 +1,21 @@
 package com.oursummer.vacit.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.awt.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +31,6 @@ public class Habit {
     private LocalDate endDate;
 
     @Column(nullable = false)
-    private Color backgroundColor;
-
-    @Column(nullable = false)
     private String memo;
 
     @Column(nullable = false)
@@ -40,6 +42,14 @@ public class Habit {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @Column(nullable = false)
-    private String status; //TODO default 설정
+    @Column
+    private String status;
+
+    @PrePersist
+    protected void prePersist() {
+        this.status = "ACTIVE";
+    }
+//    @Column(nullable=false)
+//    @JoinColumn(name = "user_id")
+//    private Long userId;
 }

@@ -27,10 +27,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create # 테이블 생성 전략 - create: 항상 생성
+      ddl-auto: create-drop # 테이블 생성 전략 - create-drop: 서버 시작 시 테이블 생성 후 서버 종료 시 테이블 삭제
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true # 쿼리 로그 포맷 (정렬)
+        show_sql: true # 쿼리 로그 출력
   sql:
     init:
       encoding: UTF-8
