@@ -50,4 +50,9 @@ public class UserController {
         UserWalletResponse wallet = userService.getWallet(userId);
         return ResponseEntity.ok().body(APIResponse.ofSuccess("보유중인 돈 조회 성공", wallet));
     }
+    @GetMapping("/users/{userId}/setting")
+    public ResponseEntity<Object> getSetting(@PathVariable Long userId) {
+        log.info("get user setting: {}", userId);
+        return ResponseEntity.ok().body(APIResponse.ofSuccess("설정 정보 조회 성공", userService.getSetting(userId)));
+    }
 }

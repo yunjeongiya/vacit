@@ -26,4 +26,8 @@ public class User {
     @Column(nullable = false)
     @JoinColumn(name = "wallet_id")
     private Long walletId;
+
+    @Column(nullable = false)
+    @JoinColumn(name = "setting_id")
+    private Long settingId;
 }
