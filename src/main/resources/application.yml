@@ -18,6 +18,25 @@ spring:
             token-uri: https://nid.naver.com/oauth2.0/token
   application:
     name: vacit
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./data/demo
+    username: sa
+    password: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update # 테이블 생성 전략 - update: 테이블이 없을 때만 생성
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true # 다른 사용자 접속 허용
 #  profiles:
 #    active: "local"
 #    group:
